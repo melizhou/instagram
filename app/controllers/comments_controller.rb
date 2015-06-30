@@ -1,0 +1,24 @@
+class CommentsController < ApplicationController
+	
+	def create
+		@photo = Photo.find (param[:photo_id])
+		@comment = @photo.comments.create(comments_params)
+		redirect_to photo_path(@photo)
+	end
+	
+	 def destroy
+   @photo = Photo.find (param[:photo_id])
+    @comment = @photo.comments.find(params[:id])
+    @comment.destroy
+    redirect_to photo_path(@photo)
+  end	
+
+
+private
+def comment_params
+	params.require(:comment).permit(:body)
+end
+
+
+
+end 
