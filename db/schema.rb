@@ -11,16 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150630100312) do
+ActiveRecord::Schema.define(version: 20150630183027) do
 
   create_table "comments", force: :cascade do |t|
     t.text     "body"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer  "photo_id"
+    t.integer  "user_id"
   end
 
   add_index "comments", ["photo_id"], name: "index_comments_on_photo_id"
+  add_index "comments", ["user_id"], name: "index_comments_on_user_id"
 
   create_table "photos", force: :cascade do |t|
     t.boolean  "public"
@@ -46,6 +48,8 @@ ActiveRecord::Schema.define(version: 20150630100312) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
+    t.string   "provider"
+    t.string   "uid"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

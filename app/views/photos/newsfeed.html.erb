@@ -1,0 +1,13 @@
+<h1> Welcome to BruGram </h1>
+<%= link_to 'My Photos', photos_path %>
+
+<% @photos.each do |photo| %>
+
+<% if photo.public == true || User.find(photo.user_id) == current_user %>
+<h2> by: <%= photo.user.email %> </h2>
+<p> <img src="<%= photo.image %>"></p>
+<h2> <%= photo.caption %></h2>
+<p><%= link_to "Show", photo_path(photo) %></p>
+
+<% end %>
+<% end %>

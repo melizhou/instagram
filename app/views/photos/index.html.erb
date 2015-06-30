@@ -1,0 +1,10 @@
+<h1> My Photos </h1>
+<%= link_to 'New Photo', new_photo_path %>
+
+<% @photos.each do |photo| %>
+
+<p> <img src="<%= photo.image %>"></p>
+<h2> <%= photo.caption %></h2>
+<p><%= link_to "Show", photo_path(photo) %></p>
+
+<% end %>

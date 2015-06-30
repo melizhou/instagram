@@ -1,0 +1,26 @@
+<br>
+<br>
+<img src="<%= @photo.image %>">
+ 
+<h2>
+  <%= @photo.caption %>
+</h2>
+
+<% if User.find(@photo.user_id) == current_user %>
+<%= link_to 'Edit', edit_photo_path(@photo) %> 
+<%= link_to 'Delete', (@photo),
+              method: :delete,
+              data: { confirm: 'Are you sure?' } %>
+<% end %>
+
+<h2>Comments</h2>
+<%= render @photo.comments %>
+
+
+<h2>Add a comment:</h2>
+
+<% @comment = Comment.new %>
+<%= render 'comments/form' %>
+
+
+<%= link_to 'Back', root_path %>

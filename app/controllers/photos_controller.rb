@@ -1,15 +1,12 @@
 class PhotosController < ApplicationController
-	def index		
+	before_action :authenticate_user!, :except => [:index, :show]
+	def newsfeed
 		@photos = Photo.all
-		@photos.each do |photo|
-			if photo.public
-				@visible_photos << photo 
-			elsif photo.user_id == current_user.id
-				@visible_photos << photo 				
-			end
-		end
 	end
 
+	def index
+		@photos = current_user.photos.all 
+	end 
 	def new
 		@photo = Photo.new
 	end
@@ -18,11 +15,11 @@ class PhotosController < ApplicationController
 	end
 
 	def edit
-		@photo = Photo.find params [:id]
+		@photo = Photo.find params[:id]
 	end
 
 	def create
-		@photo = Photo.new(photo_params)
+		@photo = current_user.photos.new(photo_params)
 		if @photo.save
 			redirect_to @photo
 		else
